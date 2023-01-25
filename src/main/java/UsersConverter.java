@@ -1,6 +1,7 @@
 import dto.UsersDto;
+import org.springframework.stereotype.Component;
 import repository.Users;
-
+@Component
 public class UsersConverter {
 
     public Users fromUserDtoToUser(UsersDto usersDto) {
