@@ -1,6 +1,7 @@
-package service;
+package com.javamaster.application.service;
 
-import dto.UsersDto;
+import com.javamaster.application.dto.UsersDto;
+import com.javamaster.application.exception.ValidationException;
 
 import java.util.List;
 

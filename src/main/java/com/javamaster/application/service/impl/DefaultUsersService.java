@@ -1,14 +1,19 @@
-import dto.UsersDto;
+package com.javamaster.application.service.impl;
+
+import com.javamaster.application.converter.UsersConverter;
+import com.javamaster.application.dto.UsersDto;
+import com.javamaster.application.exception.ValidationException;
+import com.javamaster.application.service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import repository.Users;
-import repository.UsersRepository;
-import service.UsersService;
+import com.javamaster.application.entity.Users;
+import com.javamaster.application.repository.UsersRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
+
 @Service
 @AllArgsConstructor
 public class DefaultUsersService implements UsersService {

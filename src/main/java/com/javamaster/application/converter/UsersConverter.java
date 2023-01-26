@@ -1,6 +1,9 @@
-import dto.UsersDto;
+package com.javamaster.application.converter;
+
+import com.javamaster.application.dto.UsersDto;
 import org.springframework.stereotype.Component;
-import repository.Users;
+import com.javamaster.application.entity.Users;
+
 @Component
 public class UsersConverter {
 

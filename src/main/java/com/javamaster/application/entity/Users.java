@@ -1,4 +1,4 @@
-package repository;
+package com.javamaster.application.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
