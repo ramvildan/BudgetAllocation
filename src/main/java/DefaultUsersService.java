@@ -23,6 +23,15 @@ public class DefaultUsersService implements UsersService {
         return usersConverter.fromUserToUserDto(savedUser);
     }
 
+    private void validationUserDto(UsersDto usersDto) throws ValidationException {
+        if (isNull(usersDto)) {
+            throw new ValidationException("Object user is null");
+        }
+        if (isNull(usersDto.getLogin()) || usersDto.getLogin().isEmpty()) {
+            throw new ValidationException("Login is empty");
+        }
+    }
+
     @Override
     public void deleteUser(Integer userId) {
         usersRepository.deleteById(userId);
@@ -43,14 +52,5 @@ public class DefaultUsersService implements UsersService {
                 .stream()
                 .map(usersConverter::fromUserToUserDto)
                 .collect(Collectors.toList());
-    }
-
-    private void validationUserDto(UsersDto usersDto) throws ValidationException {
-        if (isNull(usersDto)) {
-            throw new ValidationException("Object user is null");
-        }
-        if (isNull(usersDto.getLogin()) || usersDto.getLogin().isEmpty()) {
-            throw new ValidationException("Login is empty");
-        }
     }
 }
