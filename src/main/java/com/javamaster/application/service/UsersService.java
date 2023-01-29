@@ -11,6 +11,8 @@ public interface UsersService {
 
     void deleteUser(Integer userId);
 
+    UsersDto updateUser(Integer userId, UsersDto usersDto);
+
     UsersDto findByLogin(String login);
 
     List<UsersDto> findAll();

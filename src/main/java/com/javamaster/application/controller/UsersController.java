@@ -42,4 +42,10 @@ public class UsersController {
         log.info("Handing delete user request: " + id);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping(value = "/update/{id}")
+    public UsersDto updateUser(@PathVariable Integer id, @ModelAttribute("user") UsersDto usersDto){
+        log.info("Handing update user by id: " + id);
+        return usersService.updateUser(id, usersDto);
+    }
 }
