@@ -5,13 +5,12 @@ import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping("/users")
 @AllArgsConstructor
 @Log
@@ -19,16 +18,24 @@ public class UsersController {
 
     private final UsersService usersService;
 
-    @PostMapping(value = "/save")
-    public UsersDto saveUsers(@RequestBody UsersDto usersDto) throws ValidationException{
-        log.info("Handing save users: " + usersDto);
-        return usersService.saveUser(usersDto);
+    @GetMapping("/read-users")
+    public String readAllUsers(Model model){
+        model.addAttribute("users", usersService.findAll());
+        log.info("Hanging read all users request");
+        return "readusers";
     }
 
-    @GetMapping("/findAll")
-    public List<UsersDto> findAllUsers(){
-        log.info("Hanging find all users request");
-        return usersService.findAll();
+    @GetMapping("/save-user")
+    public String showCreateUserPage(Model model){
+        model.addAttribute("users", new UsersDto());
+        return "createuser";
+    }
+
+    @PostMapping(value = "/save-user")
+    public String createUser(@ModelAttribute("user") UsersDto usersDto) throws ValidationException{
+        usersService.saveUser(usersDto);
+        log.info("Handing save users: " + usersDto);
+        return "redirect:/read-users";
     }
 
     @GetMapping("/findByLogin")
@@ -43,6 +50,12 @@ public class UsersController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/update/{id}")
+    public String showUpdateUserPage(@PathVariable Integer id, Model model){
+        model.addAttribute("id", id);
+        model.addAttribute("users", usersService.findById(id));
+        return "updateuser";
+    }
     @PostMapping(value = "/update/{id}")
     public UsersDto updateUser(@PathVariable Integer id, @ModelAttribute("user") UsersDto usersDto){
         log.info("Handing update user by id: " + id);

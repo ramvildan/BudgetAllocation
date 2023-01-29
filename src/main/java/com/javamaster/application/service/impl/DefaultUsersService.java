@@ -10,6 +10,7 @@ import com.javamaster.application.entity.Users;
 import com.javamaster.application.repository.UsersRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -59,6 +60,12 @@ public class DefaultUsersService implements UsersService {
             return usersConverter.fromUserToUserDto(users);
         }
         return null;
+    }
+
+    @Override
+    public UsersDto findById(Integer id) {
+        Users user = usersRepository.findById(id).orElse(null);
+        return usersConverter.fromUserToUserDto(user);
     }
 
     @Override

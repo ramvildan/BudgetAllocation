@@ -15,6 +15,8 @@ public interface UsersService {
 
     UsersDto findByLogin(String login);
 
+    UsersDto findById(Integer id);
+
     List<UsersDto> findAll();
 
 }
