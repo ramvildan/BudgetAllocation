@@ -5,7 +5,6 @@ import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,9 +44,10 @@ public class UsersController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUsers(@PathVariable Integer id){
+    public String deleteUsers(@PathVariable Integer id){
         log.info("Handing delete user request: " + id);
-        return ResponseEntity.ok().build();
+        usersService.deleteUser(id);
+        return "redirect:/read-users";
     }
 
     @GetMapping("/update/{id}")
@@ -57,8 +57,9 @@ public class UsersController {
         return "updateuser";
     }
     @PostMapping(value = "/update/{id}")
-    public UsersDto updateUser(@PathVariable Integer id, @ModelAttribute("user") UsersDto usersDto){
+    public String updateUser(@PathVariable Integer id, @ModelAttribute("user") UsersDto usersDto){
         log.info("Handing update user by id: " + id);
-        return usersService.updateUser(id, usersDto);
+        usersService.updateUser(id, usersDto);
+        return "redirect:/read-users";
     }
 }

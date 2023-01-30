@@ -14,6 +14,7 @@
         <th>Name</th>
         <th>Login</th>
         <th>Email</th>
+        <th>Update</th>
         <th>Delete</th>
     </tr>
     <c:forEach var="user" items="${users}">
@@ -22,9 +23,11 @@
             <td>${user.name}</td>
             <td>${user.login}</td>
             <td>${user.email}</td>
-            <td><a href="/update/${user.id}">Update</a> </td>
-            <td><a href="/delete/${user.id}">Delete</a> </td>
+            <td><a href="/users/update/${user.id}">Update</a> </td>
+            <td><a href="/users/delete/${user.id}">Delete</a> </td>
         </tr>
     </c:forEach>
 </table>
+<br/>
+<a href="/users/save-user">Create Users</a>
 </body>
