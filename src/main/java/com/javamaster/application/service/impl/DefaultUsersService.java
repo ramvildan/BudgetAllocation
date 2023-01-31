@@ -22,13 +22,6 @@ public class DefaultUsersService implements UsersService {
     private final UsersRepository usersRepository;
     private final UsersConverter usersConverter;
 
-    @Override
-    public UsersDto saveUser(UsersDto usersDto) throws ValidationException {
-        validationUserDto(usersDto);
-        Users savedUser = usersRepository.save(usersConverter.fromUserDtoToUser(usersDto));
-        return usersConverter.fromUserToUserDto(savedUser);
-    }
-
     private void validationUserDto(UsersDto usersDto) throws ValidationException {
         if (isNull(usersDto)) {
             throw new ValidationException("Object user is null");
@@ -36,6 +29,13 @@ public class DefaultUsersService implements UsersService {
         if (isNull(usersDto.getLogin()) || usersDto.getLogin().isEmpty()) {
             throw new ValidationException("Login is empty");
         }
+    }
+
+    @Override
+    public UsersDto saveUser(UsersDto usersDto) throws ValidationException {
+        validationUserDto(usersDto);
+        Users savedUser = usersRepository.save(usersConverter.fromUserDtoToUser(usersDto));
+        return usersConverter.fromUserToUserDto(savedUser);
     }
 
     @Override
