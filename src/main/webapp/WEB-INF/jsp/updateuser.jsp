@@ -3,7 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <h1>Update User</h1>
-<form:form method="post" action="/update/${id}">
+<%--@elvariable id="user" type="com.javamaster.application.dto.UsersDto"--%>
+<form:form method="post" modelAttribute="user" action="/users/update/${id}">
     <table>
         <tr>
             <td>Name: </td>

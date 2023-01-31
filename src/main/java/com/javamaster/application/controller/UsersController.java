@@ -14,52 +14,47 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @Log
 public class UsersController {
-
     private final UsersService usersService;
-
     @GetMapping("/read-users")
     public String readAllUsers(Model model){
         model.addAttribute("users", usersService.findAll());
         log.info("Hanging read all users request");
         return "readusers";
     }
-
     @GetMapping("/save-user")
     public String showCreateUserPage(Model model){
-        model.addAttribute("users", new UsersDto());
+        model.addAttribute("user", new UsersDto());
         return "createuser";
     }
-
     @PostMapping(value = "/save-user")
     public String createUser(@ModelAttribute("user") UsersDto usersDto) throws ValidationException{
-        usersService.saveUser(usersDto);
         log.info("Handing save users: " + usersDto);
-        return "redirect:/read-users";
+        UsersDto savedUser = usersService.saveUser(usersDto);
+        log.info("Handing read all users: " + savedUser);
+        return "redirect:/users/read-users";
     }
-
     @GetMapping("/findByLogin")
     public UsersDto findByLogin(@RequestParam String login){
         log.info("Handing find by login request: " + login);
         return usersService.findByLogin(login);
     }
-
-    @DeleteMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteUsers(@PathVariable Integer id){
         log.info("Handing delete user request: " + id);
         usersService.deleteUser(id);
-        return "redirect:/read-users";
+        return "redirect:/users/read-users";
     }
-
     @GetMapping("/update/{id}")
     public String showUpdateUserPage(@PathVariable Integer id, Model model){
         model.addAttribute("id", id);
-        model.addAttribute("users", usersService.findById(id));
+        model.addAttribute("user", usersService.findById(id));
         return "updateuser";
     }
     @PostMapping(value = "/update/{id}")
     public String updateUser(@PathVariable Integer id, @ModelAttribute("user") UsersDto usersDto){
         log.info("Handing update user by id: " + id);
+        log.info("Handing update user: " + usersDto);
         usersService.updateUser(id, usersDto);
-        return "redirect:/read-users";
+        return "redirect:/users/read-users";
     }
 }
