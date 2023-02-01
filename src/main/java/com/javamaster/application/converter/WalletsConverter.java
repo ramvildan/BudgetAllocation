@@ -1,9 +1,8 @@
 package com.javamaster.application.converter;
 
-import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.dto.WalletDto;
-import com.javamaster.application.entity.Users;
 import com.javamaster.application.entity.Wallet;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +12,6 @@ public class WalletsConverter {
         Wallet wallet = new Wallet();
         wallet.setId(walletDto.getId());
         wallet.setName(wallet.getName());
-        wallet.setTransactions(wallet.getTransactions());
         return wallet;
     }
 
@@ -21,7 +19,6 @@ public class WalletsConverter {
         return WalletDto.builder()
                 .id(wallet.getId())
                 .name(wallet.getName())
-                .transactions(wallet.getTransactions())
                 .build();
     }
 }

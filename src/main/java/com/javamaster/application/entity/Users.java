@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users_table")
@@ -27,6 +28,6 @@ public class Users {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToMany
-    private ArrayList<Wallet> wallets;
+    @OneToMany(mappedBy = "user")
+    private List<Wallet> wallets = new ArrayList<>();
 }

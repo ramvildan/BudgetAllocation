@@ -4,6 +4,7 @@ import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.UsersService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Log
 public class UsersController {
     private final UsersService usersService;

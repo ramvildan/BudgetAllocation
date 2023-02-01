@@ -17,6 +17,6 @@ public class TransactionsDto {
     private Integer id;
     private Long amount;
     private Date createdAt;
-    private Wallet wallet;
+    private WalletDto walletDto;
 
 }

@@ -21,6 +21,12 @@ public class Wallet {
     @Column(name = "name")
     private String name;
 
-    @OneToMany
+    @ManyToOne
+    private Users user;
+
+    @OneToMany(mappedBy = "wallet")
     private ArrayList<Transaction> transactions;
+
+
+    private Integer savePercent;
 }

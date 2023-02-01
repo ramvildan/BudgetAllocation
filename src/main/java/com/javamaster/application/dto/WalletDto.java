@@ -16,6 +16,5 @@ public class WalletDto {
 
     private Integer id;
     private String name;
-    private ArrayList<Transaction> transactions;
 
 }

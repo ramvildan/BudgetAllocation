@@ -4,19 +4,18 @@ import com.javamaster.application.converter.UsersConverter;
 import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.UsersService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.javamaster.application.entity.Users;
 import com.javamaster.application.repository.UsersRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DefaultUsersService implements UsersService {
 
     private final UsersRepository usersRepository;
@@ -70,8 +69,7 @@ public class DefaultUsersService implements UsersService {
 
     @Override
     public List<UsersDto> findAll() {
-        return usersRepository.findAll()
-                .stream()
+        return usersRepository.findAll().stream()
                 .map(usersConverter::fromUserToUserDto)
                 .collect(Collectors.toList());
     }

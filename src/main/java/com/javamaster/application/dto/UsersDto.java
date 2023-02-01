@@ -15,5 +15,6 @@ public class UsersDto {
     private String name;
     private String login;
     private String email;
+    private WalletDto walletDto;
 
 }

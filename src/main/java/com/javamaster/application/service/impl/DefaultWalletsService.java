@@ -5,13 +5,14 @@ import com.javamaster.application.dto.WalletDto;
 import com.javamaster.application.entity.Wallet;
 import com.javamaster.application.repository.WalletRepository;
 import com.javamaster.application.service.WalletsService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DefaultWalletsService implements WalletsService {
 
     private final WalletRepository walletRepository;
@@ -28,11 +29,14 @@ public class DefaultWalletsService implements WalletsService {
 
     @Override
     public WalletDto getById(Integer id) {
-        return null;
+        Wallet wallet = walletRepository.findWalletById(id);
+        return walletsConverter.fromWalletToWalletDto(wallet);
     }
 
     @Override
     public List<WalletDto> getAllByUserId(Integer userId) {
-        return null;
+        return walletRepository.findWalletByUserId(userId).stream()
+                .map(walletsConverter::fromWalletToWalletDto)
+                .collect(Collectors.toList());
     }
 }
