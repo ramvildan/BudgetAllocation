@@ -1,10 +1,10 @@
 package com.javamaster.application.service.impl;
 
 import com.javamaster.application.converter.TransactionsConverter;
-import com.javamaster.application.converter.UsersConverter;
 import com.javamaster.application.dto.TransactionsDto;
 import com.javamaster.application.entity.Transaction;
 import com.javamaster.application.entity.Wallet;
+import com.javamaster.application.entity.type.TransactionType;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.repository.TransactionRepository;
 import com.javamaster.application.repository.WalletRepository;
@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,8 +39,20 @@ public class DefaultTransactionsService implements TransactionsService {
     }
 
     @Override
-    public TransactionsDto createTransaction(TransactionsDto transactionsDto) throws ValidationException {
+    public TransactionsDto createTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException {
         validationTransactionsDto(transactionsDto);
+        List<Wallet> wallets = walletRepository.findWalletByUserId(userId);
+
+        wallets.forEach(wallet -> {
+            Transaction transaction = new Transaction();
+            Long amount = transactionsDto.getAmount();
+            transaction.setCreatedAt(new Date());
+            transaction.setType(TransactionType.INCOME);
+            transaction.setAmount(amount * wallet.getSavePercent() / 100);
+        });
+
+        walletRepository.saveAll(wallets);
+
         Transaction checkedTransaction = transactionRepository.save(transactionsConverter.fromTransactionsDtoToTransaction(transactionsDto));
         return transactionsConverter.fromTransactionToTransactionDto(checkedTransaction);
     }
@@ -48,8 +61,8 @@ public class DefaultTransactionsService implements TransactionsService {
     public List<TransactionsDto> getAllByUserId(Integer userId) {
         return walletRepository.findWalletByUserId(userId).stream()
                 .map(Wallet::getTransactions)
-                .map(transactions -> getAllByUserId(userId))
                 .flatMap(Collection::stream)
+                .map(transactionsConverter::fromTransactionToTransactionDto)
                 .collect(Collectors.toList());
     }
 

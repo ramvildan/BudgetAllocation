@@ -28,6 +28,6 @@ public class Users {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Wallet> wallets = new ArrayList<>();
 }

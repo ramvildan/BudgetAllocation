@@ -2,6 +2,7 @@ package com.javamaster.application.service.impl;
 
 import com.javamaster.application.converter.UsersConverter;
 import com.javamaster.application.dto.UsersDto;
+import com.javamaster.application.entity.Wallet;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,14 @@ public class DefaultUsersService implements UsersService {
     @Override
     public UsersDto saveUser(UsersDto usersDto) throws ValidationException {
         validationUserDto(usersDto);
+        Users entityToSave = usersConverter.fromUserDtoToUser(usersDto);
+        entityToSave.setWallets(List.of(
+                Wallet.builder().name("General Wallet").savePercent(50).build(),
+                Wallet.builder().name("Investments").savePercent(10).build(),
+                Wallet.builder().name("Treatment").savePercent(10).build(),
+                Wallet.builder().name("Debts and gifts").savePercent(10).build(),
+                Wallet.builder().name("Entertainment").savePercent(10).build(),
+                Wallet.builder().name("Long term costs").savePercent(10).build()));
         Users savedUser = usersRepository.save(usersConverter.fromUserDtoToUser(usersDto));
         return usersConverter.fromUserToUserDto(savedUser);
     }
