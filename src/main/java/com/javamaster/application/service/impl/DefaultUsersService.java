@@ -35,14 +35,15 @@ public class DefaultUsersService implements UsersService {
     public UsersDto saveUser(UsersDto usersDto) throws ValidationException {
         validationUserDto(usersDto);
         Users entityToSave = usersConverter.fromUserDtoToUser(usersDto);
-        entityToSave.setWallets(List.of(
-                Wallet.builder().name("General Wallet").savePercent(50).build(),
-                Wallet.builder().name("Investments").savePercent(10).build(),
+        Users savedUserWithWallet = usersRepository.save(entityToSave);
+        savedUserWithWallet.setWallets(List.of(
+                Wallet.builder().name("General Wallet").user(savedUserWithWallet).savePercent(50).build(),
+                Wallet.builder().name("Investments").user(savedUserWithWallet).savePercent(10).build(),
                 Wallet.builder().name("Treatment").savePercent(10).build(),
-                Wallet.builder().name("Debts and gifts").savePercent(10).build(),
-                Wallet.builder().name("Entertainment").savePercent(10).build(),
-                Wallet.builder().name("Long term costs").savePercent(10).build()));
-        Users savedUser = usersRepository.save(usersConverter.fromUserDtoToUser(usersDto));
+                Wallet.builder().name("Debts and gifts").user(savedUserWithWallet).savePercent(10).build(),
+                Wallet.builder().name("Entertainment").user(savedUserWithWallet).savePercent(10).build(),
+                Wallet.builder().name("Long term costs").user(savedUserWithWallet).savePercent(10).build()));
+        Users savedUser = usersRepository.save(savedUserWithWallet);
         return usersConverter.fromUserToUserDto(savedUser);
     }
 

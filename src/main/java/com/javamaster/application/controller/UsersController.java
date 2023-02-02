@@ -2,6 +2,7 @@ package com.javamaster.application.controller;
 
 import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.exception.ValidationException;
+import com.javamaster.application.service.TransactionsService;
 import com.javamaster.application.service.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 @Log
 public class UsersController {
     private final UsersService usersService;
+
+    private final TransactionsService transactionsService;
+
     @GetMapping("/read-users")
     public String readAllUsers(Model model){
         model.addAttribute("users", usersService.findAll());
