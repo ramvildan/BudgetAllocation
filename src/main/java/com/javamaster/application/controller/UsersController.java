@@ -4,6 +4,7 @@ import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.TransactionsService;
 import com.javamaster.application.service.UsersService;
+import com.javamaster.application.service.WalletsService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 @Log
 public class UsersController {
     private final UsersService usersService;
+
+    private final WalletsService walletsService;
 
     @GetMapping("/read-users")
     public String readAllUsers(Model model){
@@ -65,6 +68,7 @@ public class UsersController {
     public String showUserInfo(@PathVariable Integer id, Model model){
         model.addAttribute("id", id);
         model.addAttribute("user", usersService.findById(id));
+        model.addAttribute("wallet", walletsService.getAllByUserId(id));
         return "showuser";
     }
 }

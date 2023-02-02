@@ -21,14 +21,14 @@
         <th>Entertainment</th>
         <th>Long term costs</th>
     </tr>
-    <c:forEach var="wallet" items="${wallets}">
+    <c:forEach var="wallet" items="${wallet}">
         <tr>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>${wallet.name}</td>
+            <td>${wallet.name}</td>
+            <td>${wallet.name}</td>
+            <td>${wallet.name}</td>
+            <td>${wallet.name}</td>
+            <td>${wallet.name}</td>
         </tr>
     </c:forEach>
 </table>
