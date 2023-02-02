@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
     private final UsersService usersService;
 
-    private final TransactionsService transactionsService;
-
     @GetMapping("/read-users")
     public String readAllUsers(Model model){
         model.addAttribute("users", usersService.findAll());
@@ -61,5 +59,12 @@ public class UsersController {
         log.info("Handing update user: " + usersDto);
         usersService.updateUser(id, usersDto);
         return "redirect:/users/read-users";
+    }
+
+    @GetMapping("/show/{id}")
+    public String showUserInfo(@PathVariable Integer id, Model model){
+        model.addAttribute("id", id);
+        model.addAttribute("user", usersService.findById(id));
+        return "showuser";
     }
 }

@@ -14,6 +14,7 @@
         <th>Name</th>
         <th>Login</th>
         <th>Email</th>
+        <th>Show</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -23,6 +24,7 @@
             <td>${user.name}</td>
             <td>${user.login}</td>
             <td>${user.email}</td>
+            <td><a href="/users/show/${user.id}">Show</a> </td>
             <td><a href="/users/update/${user.id}">Update</a> </td>
             <td><a href="/users/delete/${user.id}">Delete</a> </td>
         </tr>
