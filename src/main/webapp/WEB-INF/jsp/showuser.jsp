@@ -1,37 +1,43 @@
+<jsp:useBean id="user" scope="request" type="com.javamaster.application.dto.UsersDto"/>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h1>Users Wallets</h1>
-    <c:forEach var="user" items="${users}">
-<h2>User: ${user.name}</h2>
-<h2>Wallets table:</h2>
-    </c:forEach>
-<style>
-    table, th, td {
-        border:1px solid black;
-    }
-</style>
 <body>
-<table style="width:100%">
+<h2>User Data:</h2>
+<table style="width: 100%">
     <tr>
-        <th>General</th>
-        <th>Investments</th>
-        <th>Treatment</th>
-        <th>Debts and gifts</th>
-        <th>Entertainment</th>
-        <th>Long term costs</th>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Username</td>
     </tr>
-    <c:forEach var="wallet" items="${wallet}">
+    <tr>
+        <td>${user.name}</td>
+        <td>${user.email}</td>
+        <td>${user.login}</td>
+    </tr>
+</table>
+
+<h2>User wallets:</h2>
+<table style="width: 100%">
+    <tr>
+        <td>Name</td>
+        <td>Amount</td>
+    </tr>
+    <c:forEach var="wallet" items="${wallets}">
         <tr>
             <td>${wallet.name}</td>
-            <td>${wallet.name}</td>
-            <td>${wallet.name}</td>
-            <td>${wallet.name}</td>
-            <td>${wallet.name}</td>
-            <td>${wallet.name}</td>
+            <td>${wallet.amount}</td>
         </tr>
     </c:forEach>
 </table>
 <br/>
+<a href="/transactions/create-transaction/${user.id}">Create transaction</a>
+<br/>
 <a href="/users/read-users">Back to users</a>
 </body>
+
+<style>
+    table, th, td{
+        border: 1px solid black;
+    }
+</style>

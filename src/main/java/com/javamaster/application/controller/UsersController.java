@@ -68,7 +68,7 @@ public class UsersController {
     public String showUserInfo(@PathVariable Integer id, Model model){
         model.addAttribute("id", id);
         model.addAttribute("user", usersService.findById(id));
-        model.addAttribute("wallet", walletsService.getAllByUserId(id));
+        model.addAttribute("wallets", walletsService.getAllByUserId(id));
         return "showuser";
     }
 }

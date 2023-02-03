@@ -1,6 +1,7 @@
 package com.javamaster.application.converter;
 
 import com.javamaster.application.dto.WalletDto;
+import com.javamaster.application.entity.Transaction;
 import com.javamaster.application.entity.Wallet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class WalletsConverter {
         return WalletDto.builder()
                 .id(wallet.getId())
                 .name(wallet.getName())
+                .amount(wallet.getTransactions().stream().mapToLong(Transaction::getAmount).sum())
                 .build();
     }
 }

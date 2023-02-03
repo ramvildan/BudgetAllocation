@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "wallet_table")
@@ -28,7 +29,7 @@ public class Wallet {
     private Users user;
 
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<Transaction> transactions;
+    private List<Transaction> transactions = new ArrayList<>();
 
     @Column(name = "percentage_of_income")
     private Integer savePercent;
