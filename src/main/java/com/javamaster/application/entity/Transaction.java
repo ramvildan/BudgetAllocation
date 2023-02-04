@@ -2,9 +2,7 @@ package com.javamaster.application.entity;
 
 import com.javamaster.application.entity.type.TransactionType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,6 +11,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Transaction {
 
     @Id
@@ -28,6 +27,7 @@ public class Transaction {
     @Column(name = "status")
     private TransactionType type;
 
+    @ToString.Exclude
     @ManyToOne
     private Wallet wallet;
 }

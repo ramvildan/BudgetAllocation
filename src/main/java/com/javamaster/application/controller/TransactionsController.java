@@ -26,8 +26,9 @@ public class TransactionsController {
     @PostMapping(value = "/create-transaction/{userId}")
     public String createTransaction(@PathVariable Integer userId, @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
         log.info("Handing create transaction: " + transactionsDto);
-        TransactionsDto createdTransaction = transactionsService.createTransaction(userId, transactionsDto);
-        log.info("Handing read saved transaction: " + createdTransaction);
-        return "redirect:/users/show" + userId;
+
+        transactionsService.createTransaction(userId, transactionsDto);
+
+        return "redirect:/users/show/" + userId;
     }
 }

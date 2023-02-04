@@ -1,10 +1,7 @@
 package com.javamaster.application.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +25,7 @@ public class Wallet {
     @JoinColumn(name = "user_id")
     private Users user;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> transactions = new ArrayList<>();
 

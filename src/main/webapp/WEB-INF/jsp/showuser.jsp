@@ -2,13 +2,20 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<style>
+    table, th, td {
+        border:1px solid black;
+    }
+</style>
 <body>
+<a href="/users/read-users">Back to users</a>
+<br/>
 <h2>User Data:</h2>
 <table style="width: 100%">
     <tr>
-        <td>Name</td>
-        <td>Email</td>
-        <td>Username</td>
+        <td><b>Name</b></td>
+        <td><b>Email</b></td>
+        <td><b>Username</b></td>
     </tr>
     <tr>
         <td>${user.name}</td>
@@ -20,24 +27,18 @@
 <h2>User wallets:</h2>
 <table style="width: 100%">
     <tr>
-        <td>Name</td>
-        <td>Amount</td>
+        <td><b>Id</b></td>
+        <td><b>Name</b></td>
+        <td><b>Amount</b></td>
     </tr>
     <c:forEach var="wallet" items="${wallets}">
         <tr>
-            <td>${wallet.name}</td>
+            <td>${wallet.id}</td>
+            <td>${wallet.name} (<a href="/wallets/update/${wallet.id}?userId=${user.id}">edit</a>)</td>
             <td>${wallet.amount}</td>
         </tr>
     </c:forEach>
 </table>
 <br/>
 <a href="/transactions/create-transaction/${user.id}">Create transaction</a>
-<br/>
-<a href="/users/read-users">Back to users</a>
 </body>
-
-<style>
-    table, th, td{
-        border: 1px solid black;
-    }
-</style>

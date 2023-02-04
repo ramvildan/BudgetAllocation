@@ -39,22 +39,17 @@ public class DefaultTransactionsService implements TransactionsService {
     }
 
     @Override
-    public TransactionsDto createTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException {
+    public void createTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException {
         validationTransactionsDto(transactionsDto);
-        List<Wallet> wallets = walletRepository.findWalletByUserId(userId);
-
-        wallets.forEach(wallet -> {
-            Transaction transaction = new Transaction();
-            Long amount = transactionsDto.getAmount();
-            transaction.setCreatedAt(new Date());
-            transaction.setType(TransactionType.INCOME);
-            transaction.setAmount(amount * wallet.getSavePercent() / 100);
-        });
-
-        walletRepository.saveAll(wallets);
-
-        Transaction checkedTransaction = transactionRepository.save(transactionsConverter.fromTransactionsDtoToTransaction(transactionsDto));
-        return transactionsConverter.fromTransactionToTransactionDto(checkedTransaction);
+        List<Transaction> newTransaction =
+                walletRepository.findWalletByUserId(userId).stream()
+                        .map(wallet -> Transaction.builder()
+                                .createdAt(new Date())
+                                .type(TransactionType.INCOME)
+                                .amount(transactionsDto.getAmount() * wallet.getSavePercent() / 100)
+                                .wallet(wallet).build())
+                        .toList();
+        transactionRepository.saveAll(newTransaction);
     }
 
     @Override
@@ -68,8 +63,7 @@ public class DefaultTransactionsService implements TransactionsService {
 
     @Override
     public List<TransactionsDto> getAllByWalletId(Integer walletId) {
-        return transactionRepository.findTransactionByWalletId(walletId)
-                .stream()
+        return transactionRepository.findTransactionByWalletId(walletId).stream()
                 .map(transactionsConverter::fromTransactionToTransactionDto)
                 .collect(Collectors.toList());
     }

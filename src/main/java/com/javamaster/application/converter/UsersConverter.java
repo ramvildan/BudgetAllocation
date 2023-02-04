@@ -4,19 +4,27 @@ import com.javamaster.application.dto.UsersDto;
 import org.springframework.stereotype.Component;
 import com.javamaster.application.entity.Users;
 
+import static java.util.Objects.isNull;
+
 @Component
 public class UsersConverter {
 
     public Users fromUserDtoToUser(UsersDto usersDto) {
-        Users users = new Users();
-        users.setId(usersDto.getId());
-        users.setEmail(usersDto.getEmail());
-        users.setName(usersDto.getName());
-        users.setLogin(usersDto.getLogin());
-        return users;
+        if (isNull(usersDto)) {
+            return null;
+        }
+        return Users.builder()
+                .id(usersDto.getId())
+                .email(usersDto.getEmail())
+                .name(usersDto.getName())
+                .login(usersDto.getLogin())
+                .build();
     }
 
     public UsersDto fromUserToUserDto(Users users) {
+        if (isNull(users)) {
+            return null;
+        }
         return UsersDto.builder()
                 .id(users.getId())
                 .email(users.getEmail())

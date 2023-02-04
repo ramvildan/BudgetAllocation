@@ -5,6 +5,7 @@ import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.entity.Wallet;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.UsersService;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.javamaster.application.entity.Users;
@@ -20,6 +21,7 @@ import static java.util.Objects.isNull;
 public class DefaultUsersService implements UsersService {
 
     private final UsersRepository usersRepository;
+
     private final UsersConverter usersConverter;
 
     private void validationUserDto(UsersDto usersDto) throws ValidationException {
