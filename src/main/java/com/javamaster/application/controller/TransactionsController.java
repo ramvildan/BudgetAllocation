@@ -17,16 +17,17 @@ public class TransactionsController {
 
     private final TransactionsService transactionsService;
 
-    @GetMapping("/create-transaction/{id}")
-    public String showCreateTransactionPage(@PathVariable Integer id, Model model){
-        model.addAttribute("id", id);
+    @GetMapping("/create-transaction/{userId}")
+    public String showCreateTransactionPage(@PathVariable Integer userId, Model model){
+        model.addAttribute("transaction", new TransactionsDto());
+        model.addAttribute("userId", userId);
         return "createtransaction";
     }
-    @PostMapping(value = "/create-transaction/{id}")
-    public String createTransaction(@PathVariable Integer id, @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
+    @PostMapping(value = "/create-transaction/{userId}")
+    public String createTransaction(@PathVariable Integer userId, @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
         log.info("Handing create transaction: " + transactionsDto);
-        TransactionsDto createdTransaction = transactionsService.createTransaction(id, transactionsDto);
+        TransactionsDto createdTransaction = transactionsService.createTransaction(userId, transactionsDto);
         log.info("Handing read saved transaction: " + createdTransaction);
-        return "redirect:/show/{id}";
+        return "redirect:/users/show" + userId;
     }
 }

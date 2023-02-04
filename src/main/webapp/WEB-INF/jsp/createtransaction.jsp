@@ -4,15 +4,15 @@
 
 <h1>Create Transaction</h1>
 <%--@elvariable id="transaction" type="com.javamaster.application.dto.TransactionsDto"--%>
-<form:form method="post" modelAttribute="transaction" action="/transactions/create-transaction${id}">
+<form:form method="post" modelAttribute="transaction" action="/transactions/create-transaction/${id}">
     <table>
         <tr>
-            <td>Name: </td>
+            <td>Transaction: </td>
             <td><form:input path="amount"/></td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Create"/></td>
+            <td><input type="submit" value="Submit"/></td>
         </tr>
     </table>
 </form:form>
