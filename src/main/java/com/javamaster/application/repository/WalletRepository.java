@@ -1,6 +1,5 @@
 package com.javamaster.application.repository;
 
-import com.javamaster.application.entity.Users;
 import com.javamaster.application.entity.Wallet;
 import org.springframework.data.jpa.repository.JpaRepository;
 

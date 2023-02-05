@@ -5,7 +5,6 @@ import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.entity.Wallet;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.UsersService;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.javamaster.application.entity.Users;

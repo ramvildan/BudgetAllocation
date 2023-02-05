@@ -1,6 +1,5 @@
 package com.javamaster.application.dto;
 
-import com.javamaster.application.entity.Wallet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +16,6 @@ public class TransactionsDto {
     private Integer id;
     private Double amount;
     private Date createdAt;
-    private WalletDto walletDto;
+    private Integer walletId;
 
 }

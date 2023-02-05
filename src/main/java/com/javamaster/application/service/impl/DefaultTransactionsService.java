@@ -53,6 +53,19 @@ public class DefaultTransactionsService implements TransactionsService {
     }
 
     @Override
+    public void createExpenseTransaction(Integer walletId, TransactionsDto transactionsDto) throws ValidationException {
+        validationTransactionsDto(transactionsDto);
+        Wallet walletToUpdate = walletRepository.findWalletById(transactionsDto.getWalletId());
+        Transaction newExpenseTransaction = Transaction.builder()
+                .createdAt(new Date())
+                .type(TransactionType.EXPENSE)
+                .amount(transactionsDto.getAmount())
+                .wallet(walletToUpdate)
+                .build();
+        transactionRepository.save(newExpenseTransaction);
+    }
+
+    @Override
     public List<TransactionsDto> getAllByUserId(Integer userId) {
         return walletRepository.findWalletByUserId(userId).stream()
                 .map(Wallet::getTransactions)

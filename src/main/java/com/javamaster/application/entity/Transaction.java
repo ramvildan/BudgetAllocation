@@ -1,6 +1,7 @@
 package com.javamaster.application.entity;
 
 import com.javamaster.application.entity.type.TransactionType;
+
 import jakarta.persistence.*;
 import lombok.*;
 

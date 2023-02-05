@@ -1,6 +1,5 @@
 package com.javamaster.application.controller;
 
-import com.javamaster.application.dto.UsersDto;
 import com.javamaster.application.dto.WalletDto;
 import com.javamaster.application.service.WalletsService;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +30,7 @@ public class WalletsController {
     public String updateUser(@PathVariable Integer walletId,
                              @ModelAttribute("wallet") WalletDto walletDto,
                              @ModelAttribute("userId") Integer userId) {
-        log.info("Handing update wallet by id: " + walletId);
-        log.info("Handing update wallet: " + walletDto);
+        log.info("Handing update wallet by id: " + walletId + "\n" + "Handing update wallet: " + walletDto);
         walletsService.updateWalletName(walletId, walletDto);
 
         return "redirect:/users/show/" + userId;
