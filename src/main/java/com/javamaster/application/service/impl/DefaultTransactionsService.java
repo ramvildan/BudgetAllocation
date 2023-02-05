@@ -39,7 +39,7 @@ public class DefaultTransactionsService implements TransactionsService {
     }
 
     @Override
-    public void createTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException {
+    public void createIncomeTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException {
         validationTransactionsDto(transactionsDto);
         List<Transaction> newTransaction =
                 walletRepository.findWalletByUserId(userId).stream()

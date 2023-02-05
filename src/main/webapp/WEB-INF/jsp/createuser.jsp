@@ -1,6 +1,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<a href="/users/read-users">Back to users</a>
+<br/>
 <h1>Create User</h1>
 <%--@elvariable id="user" type="com.javamaster.application.dto.UsersDto"--%>
 <form:form method="post" modelAttribute="user" action="/users/save-user">

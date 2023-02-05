@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface TransactionsService {
 
-    void createTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException;
+    void createIncomeTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException;
 
     List<TransactionsDto> getAllByUserId(Integer userId);
 

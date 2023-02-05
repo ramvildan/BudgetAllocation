@@ -18,7 +18,8 @@ public class WalletsController {
     private final WalletsService walletsService;
 
     @GetMapping("/update/{walletId}")
-    public String showUpdateWalletPage(@PathVariable Integer walletId, @RequestParam Integer userId, Model model) {
+    public String showUpdateWalletPage(@PathVariable Integer walletId,
+                                       @RequestParam Integer userId, Model model) {
         model.addAttribute("userId", userId);
         model.addAttribute("id", walletId);
         model.addAttribute("wallet", walletsService.getById(walletId));

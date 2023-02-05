@@ -16,6 +16,6 @@ public class WalletDto {
 
     private Integer id;
     private String name;
-    private Long amount;
+    private Double amount;
 
 }

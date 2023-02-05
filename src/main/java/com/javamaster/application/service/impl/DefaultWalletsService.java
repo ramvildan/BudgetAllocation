@@ -22,8 +22,11 @@ public class DefaultWalletsService implements WalletsService {
     @Override
     public WalletDto updateWalletName(Integer walletId, WalletDto walletDto) {
         Wallet walletToUpdate = walletRepository.findWalletById(walletId);
+
         walletToUpdate.setName(walletDto.getName());
+
         Wallet updatedWallet = walletRepository.save(walletToUpdate);
+
         return walletsConverter.fromWalletToWalletDto(updatedWallet);
     }
 
@@ -35,7 +38,7 @@ public class DefaultWalletsService implements WalletsService {
 
     @Override
     public List<WalletDto> getAllByUserId(Integer userId) {
-        return walletRepository.findWalletByUserId(userId).stream()
+        return walletRepository.findWalletByUserIdOrderByIdAsc(userId).stream()
                 .map(walletsConverter::fromWalletToWalletDto)
                 .collect(Collectors.toList());
     }

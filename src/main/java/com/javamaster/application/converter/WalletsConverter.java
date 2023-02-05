@@ -28,7 +28,7 @@ public class WalletsConverter {
         return WalletDto.builder()
                 .id(wallet.getId())
                 .name(wallet.getName())
-                .amount(wallet.getTransactions().stream().mapToLong(Transaction::getAmount).sum())
+                .amount(wallet.getTransactions().stream().mapToDouble(Transaction::getAmount).sum())
                 .build();
     }
 }

@@ -15,7 +15,7 @@ import java.util.Date;
 public class TransactionsDto {
 
     private Integer id;
-    private Long amount;
+    private Double amount;
     private Date createdAt;
     private WalletDto walletDto;
 

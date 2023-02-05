@@ -56,10 +56,13 @@ public class DefaultUsersService implements UsersService {
     @Override
     public UsersDto updateUser(Integer userId, UsersDto usersDto) {
         Users userToUpdate = usersRepository.findById(userId).orElse(null);
+
         userToUpdate.setLogin(usersDto.getLogin());
         userToUpdate.setName(usersDto.getName());
         userToUpdate.setEmail(usersDto.getEmail());
+
         Users updatedUser = usersRepository.save(userToUpdate);
+
         return usersConverter.fromUserToUserDto(updatedUser);
     }
 

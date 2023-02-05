@@ -27,7 +27,7 @@ public class TransactionsController {
     public String createTransaction(@PathVariable Integer userId, @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
         log.info("Handing create transaction: " + transactionsDto);
 
-        transactionsService.createTransaction(userId, transactionsDto);
+        transactionsService.createIncomeTransaction(userId, transactionsDto);
 
         return "redirect:/users/show/" + userId;
     }

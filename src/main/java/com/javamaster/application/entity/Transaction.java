@@ -19,7 +19,7 @@ public class Transaction {
     private Integer id;
 
     @Column(name = "amount")
-    private Long amount;
+    private double amount;
 
     @Column(name = "date")
     private Date createdAt;
