@@ -1,3 +1,4 @@
+
 <jsp:useBean id="user" scope="request" type="com.javamaster.application.dto.UsersDto"/>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -40,5 +41,7 @@
     </c:forEach>
 </table>
 <br/>
-<a href="/transactions/create-transaction/${user.id}">Create transaction</a>
+<a href="/transactions/create-income-transaction/${user.id}">Create Income Transaction</a>
+<br/>
+<a href="/transactions/create-expense-transaction/${user.id}">Create Expense Transaction</a>
 </body>

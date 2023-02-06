@@ -9,7 +9,7 @@ public interface TransactionsService {
 
     void createIncomeTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException;
 
-    void createExpenseTransaction(Integer userId, TransactionsDto transactionsDto) throws ValidationException;
+    void createExpenseTransaction(Integer walletId, TransactionsDto transactionsDto) throws ValidationException;
 
     List<TransactionsDto> getAllByUserId(Integer userId);
 

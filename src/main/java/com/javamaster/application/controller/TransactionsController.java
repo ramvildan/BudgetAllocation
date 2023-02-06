@@ -3,6 +3,7 @@ package com.javamaster.application.controller;
 import com.javamaster.application.dto.TransactionsDto;
 import com.javamaster.application.exception.ValidationException;
 import com.javamaster.application.service.TransactionsService;
+import com.javamaster.application.service.WalletsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Controller;
@@ -17,17 +18,39 @@ public class TransactionsController {
 
     private final TransactionsService transactionsService;
 
-    @GetMapping("/create-transaction/{userId}")
-    public String showCreateTransactionPage(@PathVariable Integer userId, Model model){
+    private final WalletsService walletsService;
+
+    @GetMapping("/create-income-transaction/{userId}")
+    public String showCreateIncomeTransactionPage(@PathVariable Integer userId, Model model){
         model.addAttribute("transaction", new TransactionsDto());
         model.addAttribute("userId", userId);
-        return "createtransaction";
+        return "createincometransaction";
     }
-    @PostMapping(value = "/create-transaction/{userId}")
-    public String createTransaction(@PathVariable Integer userId, @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
-        log.info("Handing create transaction: " + transactionsDto);
+    @PostMapping(value = "/create-income-transaction/{userId}")
+    public String createIncomeTransaction(@PathVariable Integer userId,
+                                          @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
+        log.info("Handing create income transaction: " + transactionsDto);
 
         transactionsService.createIncomeTransaction(userId, transactionsDto);
+
+        return "redirect:/users/show/" + userId;
+    }
+
+    @GetMapping("/create-expense-transaction/{userId}")
+    public String showCreateExpenseTransactionPage(@PathVariable Integer userId, Model model){
+        model.addAttribute("walletsList", walletsService.getAllByUserId(userId));
+        model.addAttribute("transaction", new TransactionsDto());
+        model.addAttribute("userId", userId);
+        log.info(String.valueOf(userId));
+        return "createexpensetransaction";
+    }
+    @PostMapping(value = "/create-expense-transaction/{userId}")
+    public String createExpenseTransaction(@PathVariable Integer userId,
+                                           @ModelAttribute("walletId") Integer walletId,
+                                           @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
+        log.info("Handing create expense transaction: " + transactionsDto);
+
+        transactionsService.createExpenseTransaction(walletId, transactionsDto);
 
         return "redirect:/users/show/" + userId;
     }

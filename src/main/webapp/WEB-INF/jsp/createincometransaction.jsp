@@ -6,8 +6,7 @@
 <br/>
 <h1>Create Income Transaction</h1>
 <%--@elvariable id="transaction" type="com.javamaster.application.dto.TransactionsDto"--%>
-<form:form method="post" modelAttribute="transaction" action="/transactions/create-transaction/${userId}">
-
+<form:form method="post" modelAttribute="transaction" action="/transactions/create-income-transaction/${userId}">
     <table>
         <tr>
             <td>Transaction: </td>

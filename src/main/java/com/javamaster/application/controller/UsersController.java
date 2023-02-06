@@ -42,31 +42,33 @@ public class UsersController {
         log.info("Handing find by login request: " + login);
         return usersService.findByLogin(login);
     }
-    @GetMapping("/delete/{id}")
-    public String deleteUsers(@PathVariable Integer id){
-        log.info("Handing delete user request: " + id);
-        usersService.deleteUser(id);
+    @GetMapping("/delete/{userId}")
+    public String deleteUsers(@PathVariable Integer userId){
+        log.info("Handing delete user request: " + userId);
+        usersService.deleteUser(userId);
         return "redirect:/users/read-users";
     }
-    @GetMapping("/update/{id}")
-    public String showUpdateUserPage(@PathVariable Integer id, Model model){
-        model.addAttribute("id", id);
-        model.addAttribute("user", usersService.findById(id));
+    @GetMapping("/update/{userId}")
+    public String showUpdateUserPage(@PathVariable Integer userId, Model model){
+        model.addAttribute("id", userId);
+        model.addAttribute("user", usersService.findById(userId));
         return "updateuser";
     }
-    @PostMapping(value = "/update/{id}")
-    public String updateUser(@PathVariable Integer id, @ModelAttribute("user") UsersDto usersDto){
-        log.info("Handing update user by id: " + id);
+    @PostMapping(value = "/update/{userId}")
+    public String updateUser(@PathVariable Integer userId,
+                             @ModelAttribute("user") UsersDto usersDto){
+        log.info("Handing update user by id: " + userId);
         log.info("Handing update user: " + usersDto);
-        usersService.updateUser(id, usersDto);
+        usersService.updateUser(userId, usersDto);
         return "redirect:/users/read-users";
     }
 
-    @GetMapping("/show/{id}")
-    public String showUserInfo(@PathVariable Integer id, Model model){
-        model.addAttribute("id", id);
-        model.addAttribute("user", usersService.findById(id));
-        model.addAttribute("wallets", walletsService.getAllByUserId(id));
+    @GetMapping("/show/{userId}")
+    public String showUserInfo(@PathVariable Integer userId, Model model){
+        model.addAttribute("id", userId);
+        model.addAttribute("user", usersService.findById(userId));
+//        model.addAttribute("wallet", walletsService.getById());
+        model.addAttribute("wallets", walletsService.getAllByUserId(userId));
         return "showuser";
     }
 }
