@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
 
@@ -24,9 +23,7 @@ import static java.util.Objects.isNull;
 public class DefaultTransactionsService implements TransactionsService {
 
     private final TransactionRepository transactionRepository;
-
     private final WalletRepository walletRepository;
-
     private final TransactionsConverter transactionsConverter;
 
     private void validationTransactionsDto(TransactionsDto transactionsDto) throws ValidationException {
@@ -71,13 +68,13 @@ public class DefaultTransactionsService implements TransactionsService {
                 .map(Wallet::getTransactions)
                 .flatMap(Collection::stream)
                 .map(transactionsConverter::fromTransactionToTransactionDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public List<TransactionsDto> getAllByWalletId(Integer walletId) {
         return transactionRepository.findTransactionByWalletId(walletId).stream()
                 .map(transactionsConverter::fromTransactionToTransactionDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

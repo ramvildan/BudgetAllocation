@@ -20,7 +20,6 @@ import static java.util.Objects.isNull;
 public class DefaultUsersService implements UsersService {
 
     private final UsersRepository usersRepository;
-
     private final UsersConverter usersConverter;
 
     private void validationUserDto(UsersDto usersDto) throws ValidationException {
@@ -84,6 +83,6 @@ public class DefaultUsersService implements UsersService {
     public List<UsersDto> findAll() {
         return usersRepository.findAll().stream()
                 .map(usersConverter::fromUserToUserDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

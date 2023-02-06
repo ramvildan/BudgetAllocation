@@ -6,6 +6,7 @@ import com.javamaster.application.service.TransactionsService;
 import com.javamaster.application.service.WalletsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/transactions")
-@Log
+@Log4j2
 public class TransactionsController {
 
     private final TransactionsService transactionsService;
-
     private final WalletsService walletsService;
 
     @GetMapping("/create-income-transaction/{userId}")
@@ -26,10 +26,11 @@ public class TransactionsController {
         model.addAttribute("userId", userId);
         return "createincometransaction";
     }
+
     @PostMapping(value = "/create-income-transaction/{userId}")
     public String createIncomeTransaction(@PathVariable Integer userId,
                                           @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
-        log.info("Handing create income transaction: " + transactionsDto);
+        log.info("createIncomeTransaction: userId = {}, transactionDto = {}", userId, transactionsDto);
 
         transactionsService.createIncomeTransaction(userId, transactionsDto);
 
@@ -44,11 +45,12 @@ public class TransactionsController {
         log.info(String.valueOf(userId));
         return "createexpensetransaction";
     }
+
     @PostMapping(value = "/create-expense-transaction/{userId}")
     public String createExpenseTransaction(@PathVariable Integer userId,
                                            @ModelAttribute("walletId") Integer walletId,
                                            @ModelAttribute("transaction") TransactionsDto transactionsDto) throws ValidationException{
-        log.info("Handing create expense transaction: " + transactionsDto);
+        log.info("createExpenseTransaction: userId = {}, walletId = {}, transactionDto = {}", userId, walletId, transactionsDto);
 
         transactionsService.createExpenseTransaction(walletId, transactionsDto);
 

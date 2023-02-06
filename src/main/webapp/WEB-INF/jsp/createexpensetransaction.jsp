@@ -10,14 +10,18 @@
 <form:form method="post" modelAttribute="transaction" action="/transactions/create-expense-transaction/${userId}">
     <table>
         <tr>
-            <td>Transaction: </td>
+            <td>Transaction:</td>
             <td><form:input path="amount"/></td>
         </tr>
-        <td>
-            <form:select path="walletId" multiple="true" id="${transaction.walletId}" class="form-control">
-                <form:options items="${walletsList}" itemLabel="" itemValue="${transaction.walletId}"/>
-            </form:select>
-        </td>
+
+        <tr>
+            <td>Select wallet: </td>
+            <td>
+                <form:select path="walletId" multiple="true" id="walletSelector" class="form-control">
+                    <form:options items="${walletsList}" itemLabel="name" itemValue="id"/>
+                </form:select>
+            </td>
+        </tr>
         <tr>
             <td></td>
             <td><input type="submit" value="Submit"/></td>

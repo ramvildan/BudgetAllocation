@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class DefaultWalletsService implements WalletsService {
 
     private final WalletRepository walletRepository;
-
     private final WalletsConverter walletsConverter;
 
     @Override
@@ -40,6 +39,6 @@ public class DefaultWalletsService implements WalletsService {
     public List<WalletDto> getAllByUserId(Integer userId) {
         return walletRepository.findWalletByUserIdOrderByIdAsc(userId).stream()
                 .map(walletsConverter::fromWalletToWalletDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
